@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+    <title>
+
+    </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .Box {
+            max-width: 1000px;
+            min-height: 800px;
+            margin: 10px auto;
+            border: 2px solid black;
+            padding: 15px;
+        }
+        .Chap {
+            display: flex;
+            justify-content: center;
+        }
+        .But {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .Contain {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        .List {
+            display: none; 
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 600px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+        .Grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            }
+        .decorate {
+            display: block;
+            padding: 8px 12px;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #333;
+            text-align: center;
+            cursor: pointer;
+        }
+        .decorate:hover {
+            background-color: #259ae8;
+            color: white;
+            }
+        .decorate.current {
+            background-color: #259ae8;
+            color: white;
+        }
+        #ChangeColor {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background: red;
+        }
+        .clickcolor {
+            display: flex;
+            justify-content: center;
+        }
+        .center1, .center2 {
+            text-align: center;
+        }
+        .Center {
+            text-align: center;
+        }
+        .buttondecorate {
+            padding: 15px;
+            border: 2px solid black;
+            background: wheat;
+            margin: 10px 0;
+            width: 200px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            color: rgb(187, 35, 35);
+        }
+        .buttondecorate:hover {
+            opacity: 0.7;
+        }
+        .font {
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .clickbut {
+            margin-top: 10px;
+            width: 200px;
+            padding: 15px;
+            border: 2px solid black;
+            font-weight: bold;
+            background: white;
+            transition: 0.3s;
+        }
+        .clickbut:hover {
+            opacity: 0.7;
+        }
+        .decoratebut {
+            padding: 15px;
+            font-weight: bold;
+            color: #333;
+            background-color: #f5f5f5;
+            border: 2px solid black;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            width: 150px;
+        }
+        .decoratebut:hover {
+            background-color: #259ae8;
+            color: white;
+        }
+    </style>
+    <body>
+        <div class="Center">
+            <h2>My JavaScript Tutorials Code</h2>
+            <p id="demo">I love learning JavaScript</p>
+        </div>
+
+        <div class="center1">
+            <button class="buttondecorate" onclick="document.getElementById('demo').innerHTML = 'Hello JavaScript';">Change Paragraph</button> <br>
+            <button class="buttondecorate" onclick="window.alert('Hello');">Alert</button> <br>
+            <button class="buttondecorate" onclick="console.log('Hello');">Log</button> <br>
+            <button class="buttondecorate" onclick="window.print();">Print</button>
+        </div>
+
+        <div class="center2">
+            <p class="font" id="demo"></p>
+            <p class="font" id="demo2"></p>
+            <p class="font" id="demo3"></p>
+            <p class="font" id="demo4"></p>
+            <p class="font" id="demo5"></p>
+
+            <p class="font" id="demo6"></p>
+        </div>
+
+        <div class="clickcolor">
+            <button class="clickbut" onclick="ChangeNow()">Click To Change Color</button>
+        </div>
+        <div id="ChangeColor"></div>
+
+        <div class="clickcolor">
+            <button class="clickbut" onclick="ChangeImage()">Click To Change Image</button>
+        </div>
+        <img id="myimage" src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" style="width: 100px; margin: 10px auto; display: block;">
+
+        <div class="Box">
+            <h2 class="Chap" id="chap">Chapter 1</h2>
+            <div class="Text" id="text">
+                <p>Ancalagon</p>
+            </div>
+            <div class="But">
+                <button id="prev" class="decoratebut">Previous Chapter</button>
+                <button id="next" class="decoratebut">Next Chapter</button>
+            </div>
+            <div class="Contain">
+                <button onclick="toggleChapterList()" class="decoratebut"> All Chapter </button>
+                <div class="List" id="list">
+                    <div class="Grid" id="containchapter">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            let x, y, z;
+            x = 5;
+            y = 6;
+            z = x + y;
+
+            document.getElementById("demo").innerHTML = "The value of z is" + z;
+
+            document.getElementById("demo2").innerHTML = 5 * 10
+            document.getElementById("demo3").innerHTML = "John" + " " + "Doe";
+
+            let lastname, lastName;
+            lastname = "Doe"
+            lastName = "PeterSon";
+
+            document.getElementById("demo4").innerHTML = lastname;
+            document.getElementById("demo5").innerHTML = lastName
+
+            const PI = 3.141592653589793;
+            
+            document.getElementById("demo6").innerHTML = PI
+
+            var button = document.querySelector('button');
+            var box = document.getElementById('ChangeColor')
+
+            function ChangeNow() {
+                if (box.style.background === 'red') {
+                    box.style.background = 'blue'
+                } else {
+                    box.style.background = 'red'
+                }
+            }
+
+            let currentImage = 1;
+
+            function ChangeImage() {
+                const img = document.getElementById('myimage')
+                if (currentImage === 1) {
+                    img.src = "https://cdn.pixabay.com/photo/2015/04/23/17/41/javascript-736401_1280.png";
+                    currentImage = 2
+                } else {
+                    img.src = "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png";
+                    currentImage = 1
+                }
+            }
+
+            const chapters = [
+                {
+                    id: 1,
+                    title: "Chapter 1",
+                    content: `<p>What is JavaScript? JavaScript is the programming language of the web. It can calculate, manipulate and validate data. It can update and change both HTML and CSS. <br>
+                        1. HTML to define the content of web pages <br>
+                        2. CSS to specify the layout of web pages <br>
+                        3. JavaScript to program the behavior of web pages <br>
+                        JavaScript Can Change HTML Content One of many JavaScript HTML methods is getElementById(). <br>
+                        The example below "finds" an HTML element (with id="demo"), and changes the element content (innerHTML) to "Hello JavaScript":</p>`
+                },
+                {
+                    id: 2,
+                    title: "Chapter 2",
+                    content: `<p>JavaScript (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions. While it is most well-known as the scripting language for Web pages, many non-browser environments also use it, such as Node.js, Apache CouchDB and Adobe Acrobat. JavaScript is a prototype-based, garbage-collected, dynamic language, supporting multiple paradigms such as imperative, functional, and object-oriented.</p>`
+                },
+                {
+                    id: 3,
+                    title: "Chapter 3",
+                    content: `<p>JavaScript's dynamic capabilities include runtime object construction, variable parameter lists, function variables, dynamic script creation (via eval), object introspection (via for...in and Object utilities), and source-code recovery (JavaScript functions store their source text and can be retrieved through toString()).</p>`
+                }
+            ]
+
+            let currentChapterIndex = 0;
+
+            function displayChapter(index) {
+                if (index >= 0 && index < chapters.length) {
+                    currentChapterIndex = index
+
+                    document.getElementById('chap').textContent = chapters[index].title
+                    document.getElementById('text').innerHTML = chapters[index].content
+
+                    document.getElementById('prev').disabled = (index === 0)
+                    document.getElementById('next').disabled = (index === chapters.length - 1)
+                }
+            }
+
+            function toggleChapterList() {
+                const AllChapter = document.getElementById('list')
+                if (AllChapter.style.display ==='block') {
+                    AllChapter.style.display = 'none'
+                } else {
+                    AllChapter.style.display = 'block'
+                    updateChapter()
+                }
+            }
+
+            function changeChapter(direction) {
+                const newIndex = currentChapterIndex + direction
+                if (newIndex >= 0 && newIndex < chapters.length) {
+                    displayChapter(newIndex)
+
+                    window.scroll({top:0, behavior:"smooth"})
+                }
+            }
+
+            function updateChapter() {
+                const Box = document.getElementById('containchapter')
+                Box.innerHTML = ''
+
+                chapters.forEach((chapter, index) => {
+                    const chapterItem = document.createElement('a')
+                    chapterItem.href = '#'
+                    chapterItem.className = 'decorate'
+                    if (index === currentChapterIndex) {
+                        chapterItem.classList.add('current')
+                    }
+                    chapterItem.textContent = `Chapter ${chapter.id}`
+                    chapterItem.onclick = function(e) {
+                        e.preventDefault()
+                        displayChapter(index)
+                        document.getElementById('list').style.display = 'none'
+                    }
+                    Box.appendChild(chapterItem)
+                })
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                displayChapter(0)
+
+                document.getElementById('prev').addEventListener('click', function() {
+                    changeChapter(-1)
+                })
+                document.getElementById('next').addEventListener('click', function() {
+                    changeChapter(1)
+                })
+            })
+        </script>
+    </body>
+</html>
