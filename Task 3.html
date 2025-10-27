@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator with Increment/Decrement</title>
+</head>
+<body>
+    <h1>Task 3. Calculator with increment/decrement buttons</h1>
+    
+    <button onclick="decrement('num1-task3')">-</button>
+    <input type="number" id="num1-task3" value="0" readonly>
+    <button onclick="increment('num1-task3')">+</button>
+    
+    <select id="operator-task3">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    
+    <button onclick="decrement('num2-task3')">-</button>
+    <input type="number" id="num2-task3" value="0" readonly>
+    <button onclick="increment('num2-task3')">+</button>
+    
+    <button onclick="calculateTask3()">=</button>
+
+    <input type="text" id="result-task3" readonly>
+
+    <script>
+        function increment(inputId) {
+            const input = document.getElementById(inputId);
+            let value = parseInt(input.value);
+            value++;
+            input.value = value;
+        }
+        
+        function decrement(inputId) {
+            const input = document.getElementById(inputId);
+            let value = parseInt(input.value);
+            value--;
+            input.value = value;
+        }
+        
+        function calculateTask3() {
+            const num1 = parseInt(document.getElementById('num1-task3').value);
+            const num2 = parseInt(document.getElementById('num2-task3').value);
+            const operator = document.getElementById('operator-task3').value;
+            
+            let result;
+            
+            switch(operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    result = num2 !== 0 ? num1 / num2 : "Cannot divide by zero";
+                    break;
+                default:
+                    result = "Invalid operation";
+            }
+            
+            document.getElementById('result-task3').value = result;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+</head>
+<body>
+    <h1>Task 1. Calculator with text box and dropdown list</h1>
+    
+    <select id="num_1">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+    </select>
+    
+    <select id="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    
+    <select id="num_2">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+    </select>
+    
+    <button onclick="calculate()">=</button>
+    <input type="text" id="result" readonly>
+
+    <script>
+        function calculate() {
+            const num_1 = parseFloat(document.getElementById('num_1').value);
+            const num_2 = parseFloat(document.getElementById('num_2').value);
+            const operator = document.getElementById('operator').value;
+            
+            let result;
+            
+            switch(operator) {
+                case '+':
+                    result = num_1 + num_2;
+                    break;
+                case '-':
+                    result = num_1 - num_2;
+                    break;
+                case '*':
+                    result = num_1 * num_2;
+                    break;
+                case '/':
+                    result = num_2 !== 0 ? num_1 / num_2 : "Cannot divide by zero";
+                    break;
+                default:
+                    result = "Invalid operation";
+            }
+            
+            document.getElementById('result').value = result;
+        }
+    </script>
+</body>
+</html> 

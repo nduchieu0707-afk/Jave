@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator with Radio Buttons</title>
+</head>
+<body>
+    <h1>Task 2. Calculator with text box and option buttons</h1>
+    
+    <input type="number" id="num1" value="10">
+    
+    <br><br>
+    
+    <input type="radio" id="+" name="operator-2" value="+">
+    <label for="+">Addition</label><br>
+    
+    <input type="radio" id="-" name="operator-2" value="-">
+    <label for="-">Subtraction</label><br>
+    
+    <input type="radio" id="*" name="operator-2" value="*">
+    <label for="*">Multiplication</label><br>
+    
+    <input type="radio" id="/" name="operator-2" value="/">
+    <label for="/">Division</label><br>
+    
+    <br>
+    
+    <input type="number" id="num2" value="5">
+    
+    <button onclick="calculateRadio()">=</button>
+    
+    <input type="text" id="result2" readonly>
+
+    <script>
+        function calculateRadio() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            
+            const operator = document.querySelector('input[name="operator-2"]:checked').value;
+            
+            let result;
+            
+            switch(operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    result = num2 !== 0 ? num1 / num2 : "Cannot divide by zero";
+                    break;
+                default:
+                    result = "Please select an operator";
+            }
+            
+            document.getElementById('result2').value = result;
+        }
+    </script>
+</body>
+</html>
