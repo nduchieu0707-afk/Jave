@@ -1,0 +1,20 @@
+<script>
+let N = parseInt(prompt("Enter N for odd/even sums:"));
+let sumodd = 0;
+let sumeven = 0;
+let oddnumbers = "";
+let evennumbers = "";
+
+for (let i = 1; i <= N; i++) {
+    if (i % 2 === 0) {
+        sumeven += i;
+        evennumbers += i + (i < N ? " + " : "");
+    } else {
+        sumodd += i;
+        oddnumbers += i + (i < N - 1 ? " + " : "");
+    }
+}
+
+alert(`Sum of Odd = ${sumodd}, Sum of Even = ${sumeven}`);
+alert(`N = ${N}: ${oddnumbers} = ${sumodd} and ${evennumbers} = ${sumeven}`);
+</script>

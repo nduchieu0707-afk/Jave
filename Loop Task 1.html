@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+
+let N = parseInt(prompt("Enter N for factorial:"));
+let factorial = 1;
+let calculation = "";
+
+if (N < 0) {
+    alert("Unknown");
+} else {
+    for (let i = 1; i <= N; i++) {
+        factorial *= i;
+        calculation += i + (i < N ? " * " : "");
+    }
+    alert(N + "! = " + calculation + " = " + factorial);
+}
+</script>
+</body>
+</html>

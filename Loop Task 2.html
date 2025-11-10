@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+let N = parseInt(prompt("Enter N for sum:"));
+let sum = 0;
+let calculation = "";
+
+if (N < 1) {
+    alert("N is at least 1");
+} else {
+    for (let i = 1; i <= N; i++) {
+        sum += i;
+        calculation += i + (i < N ? " + " : "");
+    }
+    alert("N = " + N + ": " + calculation + " = " + sum);
+}
+</script>
+
+</body>
+</html>
