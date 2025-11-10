@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            String Task
+        </title>
+    </head>
+
+    <body>
+        <h1>Task 1</h1>
+        <h3>Make a program that asks the user for a word or phrase. As a result, the program tells you how many L letters the input contained.</h3>
+        <input type="text" id="InputText" placeholder="Text">
+        <button onclick="CheckL()">CheckL</button>
+        <p id="result"></p>
+
+        <h1>Task 2</h1>
+        <h3>Make a program that asks the user for a word or phrase. As a result, the program tells you how many vowels the input contained.</h3>
+        <input type="text" id="Inputvowels" placeholder="Text">
+        <button onclick="Checkvowels()">Checkvowels</button>
+        <p id="result2"></p>
+
+        <h1>Task 3</h1>
+        <h3>Make a program that asks the user for a word or phrase. As a result, the program tells you how is input palindrome or not.</h3>
+        <input type="text" id="Inputpalindrom" placeholder="Text">
+        <button onclick="checkPalindrome()">checkPalindrome</button>
+        <p id="result3"></p>
+    </body>
+
+    <script>
+        function CheckL() {
+            let input = document.getElementById("InputText").value
+
+            if (input === "") {
+                document.getElementById("result").textContent = "Please Text Something"
+                return
+            }
+
+            let counting = 0
+            for (let i = 0; i < input.length; i++) {
+                if (input[i].toUpperCase() === 'L') {
+                    counting++
+                }
+            }
+            document.getElementById("result").textContent = input + " contains " + counting + "xL characters";
+        }
+
+        function Checkvowels() {
+            let input2 = document.getElementById("Inputvowels").value
+
+            if (input2 === "") {
+                document.getElementById("result2").textContent = "Please text something"
+                return
+            }
+
+            const vowels = 'aeiouyåäö'
+            let count = 0
+
+            for (let i = 0; i < input2.length; i++) {
+                let characters = input2[i].toLowerCase()
+                if (vowels.includes(characters)) {
+                    count++
+                }
+            }
+            document.getElementById("result2").textContent = input2 + " contains " + count + " vowels";
+        }
+
+        function checkPalindrome() {
+            let input3 = document.getElementById("Inputpalindrom").value
+
+            if (input3 === "") {
+                document.getElementById("result3").textContent = "Please text something"
+                return
+            }
+
+            let cleanUpper = input3.toLowerCase().replace(/[^a-z0-9]/g, '');
+            let reverse = cleanUpper.split('').reverse().join('')
+            let ispalindrome = cleanUpper === reverse
+
+            if (ispalindrome) {
+                document.getElementById("result3").textContent = input3 + " is palindrome."
+            } else {
+                document.getElementById("result3").textContent = input3 + " is not palindrome."
+            }
+        }
+    </script>
+</html>
