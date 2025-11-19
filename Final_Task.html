@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Finnish ID Checker & Generator</title>
+</head>
+<body>
+    <div>
+        <h2>Finnish Personal ID Tools</h2>
+        
+        <h3>1. Implement a function that checks the correctness of the personal identity number.</h3>
+        <input type="text" id="Input" placeholder="Enter your ID here">
+        <button onclick="CheckID()">Check ID</button>
+        
+        <h3>2. Make a function that creates an ID. The initial part of the parameter that is passed to the function.</h3>
+        <input type="text" id="GenerateInput" placeholder="Enter DDMMYY-XXX format">
+        <button onclick="GenerateID()">Creates ID</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const CONTROL_CHARS = "0123456789ABCDEFHJKLMNPRSTUVWXY";
+
+        function CheckID() {
+            const input = document.getElementById('Input').value.trim();
+            const resultDiv = document.getElementById('result');
+            
+            if (!input) {
+                showResult('Please enter your correct numbers', false);
+                return;
+            }
+
+            if (!/^\d{6}[-+A]\d{3}[0-9A-Z]$/i.test(input)) {
+                showResult('Wrong format. The format must be: DDMYYY-XNNNC', false);
+                return;
+            }
+
+            const datePart = input.substring(0, 6);
+            const centuryMarker = input.charAt(6);
+            const individualNumber = input.substring(7, 10);
+            const checkChar = input.charAt(10).toUpperCase();
+
+            const dateCheck = checkDate(datePart, centuryMarker);
+            if (!dateCheck.valid) {
+                showResult(dateCheck.message, false);
+                return;
+            }
+
+            const individualNum = parseInt(individualNumber);
+            if (individualNum < 2 || individualNum > 899) {
+                showResult('Your numbers must between 002-899', false);
+                return;
+            }
+
+            const calculatedCheck = calculateCheckCharacters(datePart + individualNumber);
+            if (calculatedCheck !== checkChar) {
+                showResult(`Wrong characters. The correct must be: ${calculatedCheck}`, false);
+                return;
+            }
+
+            const gender = individualNum % 2 === 0 ? 'Female' : 'Male';
+            const age = calculateAge(dateCheck.fullDate);
+            
+            showResult(`
+                <strong>✓ Valid Code</strong><br>
+                Gender: ${gender}<br>
+                Year old: ${age} year old<br>
+                Birth: ${dateCheck.fullDate.toLocaleDateString('en-GB')}
+            `, true);
+        }
+
+        function GenerateID() {
+            const input = document.getElementById('GenerateInput').value.trim();
+            const resultDiv = document.getElementById('result');
+            
+            if (!input) {
+                showResult('Please enter correct format', false);
+                return;
+            }
+
+            if (!/^\d{6}[-+A]?\d{3}$/.test(input)) {
+                showResult('Wrong format. The format must be: DDMYYY-XXX', false);
+                return;
+            }
+
+            const cleanInput = input.replace(/[-+A]/, '');
+            
+            if (cleanInput.length !== 9) {
+                showResult('Need 9 numbers (DDMMYYXXX)', false);
+                return;
+            }
+
+            const datePart = cleanInput.substring(0, 6);
+            const centuryMarker = input.charAt(6);
+            
+            if (centuryMarker && /^[-+A]$/.test(centuryMarker)) {
+                const dateCheck = checkDate(datePart, centuryMarker);
+                if (!dateCheck.valid) {
+                    showResult(dateCheck.message, false);
+                    return;
+                }
+            }
+
+            const checkChar = calculateCheckCharacters(cleanInput);
+            const fullID = input + checkChar;
+            
+            showResult(`<strong>✓ Correct Check Characters: ${checkChar}</strong><br> Full Format: ${fullID}`, true);
+        }
+
+        function checkDate(datePart, centuryMarker) {
+            const day = parseInt(datePart.substring(0, 2));
+            const month = parseInt(datePart.substring(2, 4));
+            const shortYear = parseInt(datePart.substring(4, 6));
+
+            let century;
+            if (centuryMarker === '-') century = 1900;
+            else if (centuryMarker === '+') century = 1800;
+            else if (centuryMarker === 'A') century = 2000;
+            else return { valid: false, message: 'Wrong century characters' };
+
+            const fullYear = century + shortYear;
+
+            if (month < 1 || month > 12) {
+                return { valid: false, message: 'Months not valid' };
+            }
+
+            const daysInMonth = new Date(fullYear, month, 0).getDate();
+            if (day < 1 || day > daysInMonth) {
+                return { valid: false, message: 'Days not valid' };
+            }
+
+            const birthDate = new Date(fullYear, month - 1, day);
+            if (birthDate > new Date()) {
+                return { valid: false, message: 'Birth not valid' };
+            }
+
+            return { valid: true, fullDate: birthDate };
+        }
+
+        function calculateCheckCharacters(numberPart) {
+            const weights = [2, 4, 8, 5, 10, 9, 7, 3, 1];
+            let sum = 0;
+            
+            for (let i = 0; i < 9; i++) {
+                sum += parseInt(numberPart.charAt(i)) * weights[i];
+            }
+            
+            return CONTROL_CHARS.charAt(sum % 31);
+        }
+
+        function calculateAge(birthDate) {
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            return age;
+        }
+
+        function showResult(message, isValid) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.className = isValid ? 'Result valid' : 'Result invalid';
+            resultDiv.innerHTML = message;
+        }
+
+        document.getElementById('Input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') CheckID();
+        });
+        
+        document.getElementById('GenerateInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') GenerateID();
+        });
+    </script>
+</body>
+</html>
